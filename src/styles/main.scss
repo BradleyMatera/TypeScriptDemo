@@ -1,0 +1,119 @@
+@use "sass:color";
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;700&display=swap');
+
+// Color variables
+$green: #1C531D;
+$blue: #238AB6;
+$card-bg: rgba(28, 83, 29, 1);
+$button-bg: rgba(35, 138, 182, 1);
+$white: #FFFFFF;
+
+// Font and body styling
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: $white;
+  background-color: $green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+// Game container
+.game-container {
+  text-align: center;
+  max-width: 600px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: $card-bg;
+
+  h1 {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-weight: 500;
+  }
+}
+
+// Card grid for side-by-side alignment
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); // Ensures 3 columns in the grid layout
+  gap: 20px;
+  margin: 20px 0;
+}
+
+// 3D Card styling with flipping effect
+.card {
+  width: 100px;
+  height: 150px;
+  perspective: 1000px; // Set perspective for 3D effect
+  position: relative;
+  cursor: pointer;
+
+  &.flipped .card-front {
+    transform: rotateY(0deg); // Show the front
+  }
+
+  &.flipped .card-back {
+    transform: rotateY(180deg); // Hide the back
+  }
+
+  .card-front,
+  .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    backface-visibility: hidden; // Hide the back face when not in view
+    transition: transform 0.6s ease-in-out; // Smooth flip animation
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  .card-front {
+    background-color: $white;
+    color: $card-bg;
+    transform: rotateY(180deg); // Start rotated for flip effect
+  }
+
+  .card-back {
+    background-image: url('../src/assets/Card-back.png');
+    background-size: cover;
+    transform: rotateY(0deg); // Start with the back facing up
+  }
+}
+
+// Status and button styling
+.status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+
+  p {
+    font-size: 1.2rem;
+  }
+
+  #restartButton {
+    background-color: $button-bg;
+    color: $white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: color.adjust($button-bg, $lightness: -10%);
+    }
+  }
+}
